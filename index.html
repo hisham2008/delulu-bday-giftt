@@ -5,26 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday! 💖</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             margin: 0;
             padding: 0;
             background-color: #1a0b14; /* Deep, sleek dark background */
             color: white;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             text-align: center;
         }
         
         .screen {
             display: none; /* Everything is hidden by default */
+            min-height: 100vh;
+            width: 100%;
+            padding: 40px 20px;
+            /* Using flex here only when active to center the contents perfectly */
         }
         
         .screen.active {
-            display: block; /* Only the active screen shows */
-            animation: fadeIn 1s ease-in;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.8s ease-in;
         }
 
         @keyframes fadeIn {
@@ -36,7 +43,7 @@
             font-size: 80px; 
             cursor: pointer; 
             transition: transform 0.2s; 
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         
         .emoji:hover { 
@@ -58,8 +65,95 @@
 
         .card {
             background: #ff4d88;
-            padding: 40px;
+            padding: 35px 25px;
             border-radius: 15px;
             max-width: 400px;
+            width: 100%;
             box-shadow: 0 10px 30px rgba(255,77,136,0.4);
-            color: 
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+
+        .card p {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin: 0;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .btn {
+            background: white;
+            color: #ff4d88;
+            border: none;
+            padding: 14px 35px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="bday.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="screen-1" class="screen active">
+        <div class="emoji" onclick="nextScreen(1)">💌</div>
+        <div class="hint">Tap to open</div>
+    </div>
+
+    <div id="screen-2" class="screen">
+        <div class="card">
+            <h2>For You 💖</h2>
+            <p>Happy Birthday to my favorite dellulu! 🎉<br><br>
+
+I wanted to make something special for you today because, even though we might not be the absolute closest right now, you still mean a whole lot to me. Seriously! I really value the connection we do have, and I want you to know how much I appreciate you. Thank you for always being so sweet to me and for the trust you’ve shown me it honestly never goes unnoticed.<br><br>
+
+You are such a bright light, my beautiful mwuathee. Every time we talk or interact, you bring this amazing energy that just makes my day better. And yes, even when you are acting completely dellulu, it just makes me smile even more! Having someone as genuinely fun and kind-hearted as you in my life is something I truly cherish.<br><br>
+
+Today is all about celebrating you and how gorgeous and amazing you are. Always be happy, and please remember that I am always here for you, no matter what. I hope your birthday is filled with as much happiness as you bring to everyone else. Have the absolute best day ever! ❤️.</p>
+        </div>
+        <button class="btn" onclick="nextScreen(2)">There's More</button>
+    </div>
+
+    <div id="screen-3" class="screen">
+        <div class="emoji">🎂</div>
+        <h2>Happy Birthday!</h2>
+        <div class="hint">Make a wish</div>
+    </div>
+
+    <script>
+        function nextScreen(step) {
+            if (step === 1) {
+                // Play music on first tap
+                document.getElementById("bgMusic").play().catch(e => console.log("Audio blocked"));
+                
+                // Switch screens
+                document.getElementById("screen-1").classList.remove("active");
+                document.getElementById("screen-2").classList.add("active");
+                
+                // Scroll to top of the new screen just in case
+                window.scrollTo(0, 0);
+            } else if (step === 2) {
+                // Switch screens
+                document.getElementById("screen-2").classList.remove("active");
+                document.getElementById("screen-3").classList.add("active");
+                window.scrollTo(0, 0);
+            }
+        }
+    </script>
+
+</body>
+</html>
